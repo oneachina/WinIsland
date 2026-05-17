@@ -53,6 +53,34 @@ crate-type = ["cdylib"]
 winisland-plugin-api = { git = "https://github.com/Eatgrapes/WinIsland" }
 ```
 
+## 打包为 ZIP (ﾉ◕ヮ◕)ﾉ
+
+你的插件需要打包成 `.zip` 格式才能被 WinIsland 加载。ZIP 包内至少包含：
+
+```
+my-plugin.zip
+├── plugin.yml    ← 插件说明（必选）
+└── *.dll         ← 插件本体（必选，支持多个 .dll）
+```
+
+### plugin.yml
+
+```yaml
+name: example
+author: xxx
+version: 1.0.0
+description: This is example plugin
+github-link: example/example-plugin
+```
+
+**全部 5 个字段缺一不可**，否则安装失败 o(TヘTo)
+
+## 安装插件 ฅ^•ﻌ•^ฅ
+
+只需将 `.zip` 文件**拖放到 WinIsland 的岛上**即可！悬停时会显示 "📦 放入 zip~ 以加载插件"，松开鼠标后自动解压并加载，然后显示 "✅ 已加载 {name}~"
+
+插件会被解压到 `C:\Users\<你的用户名>\AppData\Roaming\WinIsland\plugins\<插件名>\`。
+
 ## 编写一个 ContentProvider 插件
 
 下面是一个最小示例——显示点击次数的插件 (｡･ω･｡)：
@@ -185,19 +213,6 @@ pub extern "C" fn plugin_get_instance() -> PluginInstanceC {
 | `ISLAND_CONTENT_TAG_MUSIC` | 1 | 填充 `title`, `artist`, `cover_url`, `is_playing` |
 | `ISLAND_CONTENT_TAG_NOTIFICATION` | 2 | 填充 `title`, `message`, `cover_url`（作为图标） |
 | `ISLAND_CONTENT_TAG_STATUS` | 3 | 填充 `label`, `value`, `cover_url`（作为图标） |
-
-## 部署 ฅ^•ﻌ•^ฅ
-
-1. 编译你的插件：
-   ```
-   cargo build --release
-   ```
-2. 在 `target/release/` 找到 `.dll`
-3. 复制到：
-   ```
-   C:\Users\<你的用户名>\AppData\Roaming\WinIsland\plugins\
-   ```
-4. 启动 WinIsland —— 它会自动加载该目录下所有 `.dll` 文件！
 
 ## C ABI 类型参考
 

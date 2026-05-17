@@ -53,6 +53,34 @@ crate-type = ["cdylib"]
 winisland-plugin-api = { git = "https://github.com/Eatgrapes/WinIsland" }
 ```
 
+## Packaging as ZIP (ﾉ◕ヮ◕)ﾉ
+
+Your plugin must be packaged as `.zip` to be loaded by WinIsland. The ZIP must contain:
+
+```
+my-plugin.zip
+├── plugin.yml    ← plugin manifest (required)
+└── *.dll         ← plugin binary (required, multiple .dll OK)
+```
+
+### plugin.yml
+
+```yaml
+name: example
+author: xxx
+version: 1.0.0
+description: This is example plugin
+github-link: example/example-plugin
+```
+
+**All 5 fields are required** — missing any will cause install to fail o(TヘTo)
+
+## Installing ฅ^•ﻌ•^ฅ
+
+Simply **drag the `.zip` file onto the island**! While hovering it shows "📦 放入 zip~ 以加载插件", release to auto-extract and load, then see "✅ 已加载 {name}~"
+
+Plugins are extracted to `C:\Users\<YourName>\AppData\Roaming\WinIsland\plugins\<plugin-name>\`.
+
 ## Writing a ContentProvider Plugin
 
 Here's a minimal "Hello World" plugin that shows a status message (｡･ω･｡):
@@ -185,19 +213,6 @@ When returning `IslandContentC`, set `tag` to one of:
 | `ISLAND_CONTENT_TAG_MUSIC` | 1 | Fill `title`, `artist`, `cover_url`, `is_playing` |
 | `ISLAND_CONTENT_TAG_NOTIFICATION` | 2 | Fill `title`, `message`, `cover_url` (as icon) |
 | `ISLAND_CONTENT_TAG_STATUS` | 3 | Fill `label`, `value`, `cover_url` (as icon) |
-
-## Deployment ฅ^•ﻌ•^ฅ
-
-1. Build your plugin:
-   ```
-   cargo build --release
-   ```
-2. Find the `.dll` in `target/release/`
-3. Copy it to:
-   ```
-   C:\Users\<YourName>\AppData\Roaming\WinIsland\plugins\
-   ```
-4. Launch WinIsland — it auto-loads all `.dll` files in that directory!
 
 ## C ABI Type Reference
 
