@@ -64,6 +64,8 @@ pub struct DrawIslandParams<'a> {
     pub lyrics: LyricsParams<'a>,
     pub window: WindowParams,
     pub style: StyleParams<'a>,
+    #[allow(dead_code)]
+    pub plugin_contents: &'a [(String, crate::plugin::IslandContent)],
 }
 
 pub fn draw_island(surface: &mut Surface<Arc<Window>, Arc<Window>>, params: DrawIslandParams<'_>) {
@@ -73,6 +75,7 @@ pub fn draw_island(surface: &mut Surface<Arc<Window>, Arc<Window>>, params: Draw
         lyrics,
         window,
         style,
+        plugin_contents: _,
     } = params;
 
     let LayoutParams {
